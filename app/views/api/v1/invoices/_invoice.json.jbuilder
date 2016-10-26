@@ -17,16 +17,18 @@
   end
   json.relationships do
     if expand
-      json.customer do
-        json.data do
-          json.extract! invoice.customer, :id
-          json.type "customer"
-          json.attributes do
-            json.extract! invoice.customer, :identification
+      if invoice.customer
+        json.customer do
+          json.data do
+            json.extract! invoice.customer, :id
+            json.type "customer"
+            json.attributes do
+              json.extract! invoice.customer, :identification
+            end
           end
-        end
-        json.links do
-          json.self api_v1_customer_url invoice.customer
+          json.links do
+            json.self api_v1_customer_url invoice.customer
+          end
         end
       end
       json.items invoice.items do |item|
