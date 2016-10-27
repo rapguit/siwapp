@@ -9,20 +9,18 @@ class Api::V1::BaseController < ApplicationController
   rescue_from Exception, with: :render_error # any error? go to handler!
 
 
-
-
   protected
 
   # handle errors
   def render_error exception
     case exception.class.name
     when 'ActiveRecord::RecordNotFound' then
-      error_info = { error: 'Resource Not Found' }
+      error_info = { errors: [{ message:'Resource Not Found' }] }
       status = 404
     else
       error_info = {
-        error: 'Oops!! Internal Server Error',
-        exception: "#{exception.class.name} : #{exception.message}"
+        errors: [{ message: 'Oops!! Internal Server Error', 
+          exception: "#{exception.class.name} : #{exception.message}" }], 
       }
       error_info[:trace] = exception.backtrace[0,10] if Rails.env.development?
       status = 500
