@@ -1,42 +1,17 @@
 #Siwapp
 
-[![Build Status](https://travis-ci.org/siwapp/siwapp.svg?branch=master)](https://travis-ci.org/siwapp/siwapp)
-
 Online Invoice Management
 
-[API Documentation](https://github.com/siwapp/siwapp/blob/master/API_DOC.md)
+[API Documentation](https://github.com/rapguit/siwapp/blob/master/API_DOC.md)
 
-## Howto Install on Heroku
+## Docker compose 
 
 First clone the siwapp repository into your computer:
 
-    $ git clone git@github.com:siwapp/siwapp.git
+    $ git clone git@github.com:rapguit/siwapp.git
     $ cd siwapp
+    $ docker-compose up -d
 
-Create the app in heroku (we suppose in the terminal your are logged
-in heroku). Here we call the app "siwapp-demo", but choose whatever
-you like.
+That's it! You can enjoy siwapp now.
 
-    $ heroku apps:create siwapp-demo
-    $ heroku apps:create --region eu --buildpack heroku/ruby siwapp-demo
-    $ heroku addons:create heroku-postgresql
-    $ heroku addons:create scheduler:standard
-
-Push the code to heroku, and setup database.
-
-    $ git push heroku
-    $ heroku run rake db:setup
-
-Finally create an user to be able to login into the app.
-
-    $ heroku run "rake siwapp:user:create['demo','demo@example.com','secret']"
-
-If you want the recurring invoices to be generated automatically, you have to setup the heroku scheduler addon:
-
-    $ heroku addons:open scheduler
-
-Add a new job, and put "rake siwapp:generate_invoices"
-
-That's it! You can enjoy siwapp now entering on your heroku app url.
-
-    $ heroku apps:open
+User: admin, Passwd: admin
