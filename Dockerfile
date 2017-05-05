@@ -15,9 +15,15 @@ RUN apt-get update -qq && \
 # Copy project src to container
 COPY ./Gemfile /app/
 COPY ./Gemfile.lock /app/
+COPY ./Rakefile /app/
+COPY ./config/* /app/config/
 
 # Set /app as workdir
 WORKDIR /app
 
 # Install dependencies
 RUN bundle install
+
+#DB 
+RUN rake db:setup
+RUN "rake siwapp:user:create['admin','admin@example.com','admin']"
